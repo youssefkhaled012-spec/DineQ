@@ -2,6 +2,7 @@ import { Hero } from '@/components/Hero';
 import { HowItWorks } from '@/components/HowItWorks';
 import { FeaturesSection } from '@/components/FeaturesSection';
 import { TrustSection } from '@/components/TrustSection';
+import { ProductShowcase } from '@/components/ProductShowcase';
 import { Reveal } from '@/components/motion/Reveal';
 
 export default function Home() {
@@ -13,6 +14,9 @@ export default function Home() {
       </Reveal>
       <Reveal width="100%">
         <FeaturesSection />
+      </Reveal>
+      <Reveal width="100%">
+        <ProductShowcase />
       </Reveal>
       <Reveal width="100%">
         <TrustSection />
