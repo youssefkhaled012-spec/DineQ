@@ -5,6 +5,7 @@ import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import { SiteHeader } from '@/components/SiteHeader';
+import { SiteFooter } from '@/components/SiteFooter';
 import { StarfieldBackground } from '@/components/background/StarfieldBackground';
 import "../globals.css";
 
@@ -54,6 +55,7 @@ export default async function RootLayout({
           <main className="flex-1">
             {children}
           </main>
+          <SiteFooter />
         </NextIntlClientProvider>
       </body>
     </html>

@@ -14,10 +14,10 @@ interface Star {
     twinklePhase: number;
 }
 
-const STAR_COUNT = 300;
-const NEAR_STAR_COUNT = 30;
-const MID_STAR_COUNT = 70;
-const FAR_STAR_COUNT = 200;
+const STAR_COUNT = 200;
+const NEAR_STAR_COUNT = 15;
+const MID_STAR_COUNT = 45;
+const FAR_STAR_COUNT = 140;
 
 export const StarfieldBackground: React.FC = () => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -142,11 +142,11 @@ export const StarfieldBackground: React.FC = () => {
                 // Parallax movement based on mouse
                 // Layer 1 moves more, layer 3 moves less
                 const parallaxFactor = 1 / star.z;
-                const offsetX = reducedMotion ? 0 : mouseRef.current.x * 20 * (4 - star.z);
-                const offsetY = reducedMotion ? 0 : mouseRef.current.y * 20 * (4 - star.z);
+                const offsetX = reducedMotion ? 0 : mouseRef.current.x * 12 * (4 - star.z);
+                const offsetY = reducedMotion ? 0 : mouseRef.current.y * 12 * (4 - star.z);
 
                 ctx.beginPath();
-                ctx.fillStyle = `rgba(255, 255, 255, ${currentOpacity * star.opacity})`;
+                ctx.fillStyle = `rgba(255, 255, 255, ${currentOpacity * star.opacity * 0.8})`;
 
                 // Draw star
                 ctx.arc(star.x + offsetX, star.y + offsetY, star.size, 0, Math.PI * 2);
@@ -156,23 +156,24 @@ export const StarfieldBackground: React.FC = () => {
                 // For now, static base with mouse parallax is cleaner for premium SaaS
             }
 
-            // Optional: Nebula glow
-            const gradient = ctx.createRadialGradient(
-                width * 0.8, height * 0.2, 0,
-                width * 0.8, height * 0.2, width * 0.4
+            // Enhanced Hero Nebula (Purple)
+            const heroNebula = ctx.createRadialGradient(
+                width * 0.5, height * 0.3, 0,
+                width * 0.5, height * 0.3, width * 0.6
             );
-            gradient.addColorStop(0, "rgba(88, 28, 135, 0.05)"); // Deep purple
-            gradient.addColorStop(1, "rgba(0, 0, 0, 0)");
-            ctx.fillStyle = gradient;
+            heroNebula.addColorStop(0, "rgba(168, 85, 247, 0.04)"); // Purple glow
+            heroNebula.addColorStop(1, "rgba(0, 0, 0, 0)");
+            ctx.fillStyle = heroNebula;
             ctx.fillRect(0, 0, width, height);
 
-            const gradient2 = ctx.createRadialGradient(
-                width * 0.2, height * 0.7, 0,
-                width * 0.2, height * 0.7, width * 0.3
+            // Subtle Background Blue
+            const bgNebulaBlue = ctx.createRadialGradient(
+                width * 0.2, height * 0.8, 0,
+                width * 0.2, height * 0.8, width * 0.4
             );
-            gradient2.addColorStop(0, "rgba(30, 58, 138, 0.03)"); // Deep blue
-            gradient2.addColorStop(1, "rgba(0, 0, 0, 0)");
-            ctx.fillStyle = gradient2;
+            bgNebulaBlue.addColorStop(0, "rgba(59, 130, 246, 0.02)"); // Blue tint
+            bgNebulaBlue.addColorStop(1, "rgba(0, 0, 0, 0)");
+            ctx.fillStyle = bgNebulaBlue;
             ctx.fillRect(0, 0, width, height);
 
             requestRef.current = requestAnimationFrame(animate);

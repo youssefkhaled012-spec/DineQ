@@ -122,7 +122,29 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .premium-card-hover {
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .premium-card-hover:hover {
+    transform: translateY(-4px);
+    border-color: rgba(168, 85, 247, 0.4);
+    box-shadow: 0 20px 40px -15px rgba(168, 85, 247, 0.15);
+    background-color: rgba(255, 255, 255, 0.08);
+  }
+
+  .premium-button-glow {
+    @apply relative overflow-hidden transition-all duration-300 active:scale-[0.98];
+  }
+
+  .text-glow-purple {
+    text-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
   }
 }

@@ -44,18 +44,20 @@ export function SiteHeader() {
                         <Link
                             key={link.href}
                             href={link.href}
-                            className={`transition-colors relative py-1 px-1 ${pathname === link.href
-                                ? 'text-white'
-                                : 'text-foreground/60 hover:text-white'
+                            className={`transition-all duration-300 relative py-2 px-4 rounded-xl group/nav ${pathname === link.href
+                                ? 'text-white bg-white/5'
+                                : 'text-foreground/60 hover:text-white hover:bg-white/[0.02]'
                                 }`}
                         >
-                            {link.label}
+                            <span className="relative z-10 font-bold tracking-tight">{link.label}</span>
                             {pathname === link.href && (
                                 <motion.div
-                                    layoutId="navUnderline"
-                                    className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-glow-purple to-transparent"
+                                    layoutId="navTab"
+                                    className="absolute inset-0 bg-white/5 rounded-xl border border-white/10 shadow-[0_0_20px_rgba(255,255,255,0.05)]"
+                                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                                 />
                             )}
+                            <div className="absolute bottom-1 left-4 right-4 h-px bg-glow-purple opacity-0 group-hover/nav:opacity-50 blur-[2px] transition-opacity" />
                         </Link>
                     ))}
                 </nav>
