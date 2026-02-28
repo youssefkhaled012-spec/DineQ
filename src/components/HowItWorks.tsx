@@ -47,11 +47,8 @@ export function HowItWorks() {
                     {steps.map((step, index) => (
                         <motion.div
                             key={index}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5, delay: index * 0.1 }}
-                            viewport={{ once: true }}
-                            className="group p-8 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md hover:bg-white/10 transition-all duration-300"
+                            className="group p-8 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md transition-all duration-300 hover:border-white/20 hover:shadow-[0_20px_25px_-5px_rgba(0,0,0,0.1)] active:scale-[0.98]"
+                            whileHover={{ y: -4 }}
                         >
                             <div className={`w-12 h-12 rounded-xl border flex items-center justify-center mb-6 transition-transform group-hover:scale-110 ${step.color}`}>
                                 <step.icon className="w-6 h-6" />

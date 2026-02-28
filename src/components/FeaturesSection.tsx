@@ -69,11 +69,8 @@ export function FeaturesSection() {
                     {features.map((feature, index) => (
                         <motion.div
                             key={index}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.4, delay: index * 0.05 }}
-                            viewport={{ once: true }}
-                            className="p-6 rounded-2xl border border-white/10 flex items-start gap-4 hover:border-white/20 hover:bg-white/[0.02] transition-colors group"
+                            className="p-6 rounded-2xl border border-white/10 flex items-start gap-4 transition-all duration-300 hover:border-white/20 hover:shadow-[0_20px_25px_-5px_rgba(0,0,0,0.1)] active:scale-[0.98] group"
+                            whileHover={{ y: -4 }}
                         >
                             <div className="w-10 h-10 rounded-lg bg-glow-purple/10 flex items-center justify-center shrink-0 group-hover:bg-glow-purple/20 transition-colors">
                                 <feature.icon className="w-5 h-5 text-glow-purple" />

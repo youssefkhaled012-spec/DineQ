@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { Coffee, Utensils, LayoutGrid, Hotel, Palmtree, ArrowRight, CheckCircle2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from '@/i18n/routing';
+import { Reveal } from '@/components/motion/Reveal';
 
 export default function BusinessPage() {
     const t = useTranslations('Index');
@@ -53,42 +54,31 @@ export default function BusinessPage() {
     ];
 
     return (
-        <div className="flex flex-col min-h-screen py-24">
-            <div className="container mx-auto px-6 max-w-7xl">
+        <div className="flex flex-col min-h-screen py-24 px-6 max-w-7xl mx-auto w-full">
+            <Reveal width="100%">
                 <div className="mb-20 text-center">
-                    <motion.h1
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="text-4xl md:text-6xl font-bold tracking-tight mb-6"
-                    >
+                    <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6 bg-gradient-to-br from-white to-white/40 bg-clip-text text-transparent">
                         {t('business_title')}
-                    </motion.h1>
-                    <motion.p
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.1 }}
-                        className="text-foreground/60 max-w-2xl mx-auto text-lg"
-                    >
+                    </h1>
+                    <p className="text-foreground/60 max-w-2xl mx-auto text-lg leading-relaxed">
                         {t('business_subtitle')}
-                    </motion.p>
+                    </p>
                 </div>
+            </Reveal>
 
-                <div className="space-y-12">
-                    {sectors.map((sector, i) => (
+            <div className="space-y-12">
+                {sectors.map((sector, i) => (
+                    <Reveal key={sector.title} width="100%">
                         <motion.div
-                            key={sector.title}
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5 }}
-                            viewport={{ once: true }}
-                            className={`p-8 md:p-12 rounded-[2rem] border border-white/10 bg-gradient-to-br ${sector.color} flex flex-col md:flex-row gap-12 items-center`}
+                            whileHover={{ scale: 1.01 }}
+                            className={`p-8 md:p-12 rounded-[2.5rem] border border-white/10 bg-gradient-to-br ${sector.color} flex flex-col md:flex-row gap-12 items-center transition-all duration-500 hover:border-white/20 hover:shadow-[0_20px_50px_-10px_rgba(0,0,0,0.3)]`}
                         >
                             <div className="flex-1">
-                                <div className={`w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-6 ${sector.iconColor}`}>
+                                <div className={`w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-6 ${sector.iconColor} shadow-[0_0_20px_rgba(0,0,0,0.1)]`}>
                                     <sector.icon className="w-8 h-8" />
                                 </div>
                                 <h2 className="text-3xl font-bold mb-4">{sector.title}</h2>
-                                <p className="text-lg text-foreground/80 mb-8 max-w-xl italic">
+                                <p className="text-lg text-foreground/80 mb-8 max-w-xl italic leading-relaxed">
                                     "{sector.problem}"
                                 </p>
                                 <div className="space-y-4 mb-8">
@@ -99,21 +89,21 @@ export default function BusinessPage() {
                                         </div>
                                     ))}
                                 </div>
-                                <Button asChild className="bg-white text-black hover:bg-white/90 font-bold px-8">
+                                <Button asChild className="bg-white text-black hover:bg-white/90 font-bold px-10 h-12 rounded-xl transition-all active:scale-[0.98] shadow-[0_0_20px_rgba(255,255,255,0.05)]">
                                     <Link href="/demo">
                                         {t('business_cta')} <ArrowRight className="ml-2 h-4 w-4 rtl:rotate-180" />
                                     </Link>
                                 </Button>
                             </div>
                             <div className="hidden md:flex flex-1 justify-center">
-                                <div className="w-full max-w-sm aspect-square rounded-3xl bg-white/5 border border-white/10 flex items-center justify-center relative overflow-hidden group">
-                                    <div className={`absolute inset-0 bg-gradient-to-br ${sector.color} opacity-20 group-hover:opacity-30 transition-opacity`}></div>
-                                    <sector.icon className={`w-32 h-32 opacity-20 ${sector.iconColor} group-hover:scale-110 transition-transform duration-500`} />
+                                <div className="w-full max-w-sm aspect-square rounded-[2rem] bg-white/5 border border-white/10 flex items-center justify-center relative overflow-hidden group shadow-inner">
+                                    <div className={`absolute inset-0 bg-gradient-to-br ${sector.color} opacity-20 group-hover:opacity-30 transition-opacity duration-500`}></div>
+                                    <sector.icon className={`w-32 h-32 opacity-20 ${sector.iconColor} group-hover:scale-110 group-hover:opacity-40 transition-all duration-700 ease-out`} />
                                 </div>
                             </div>
                         </motion.div>
-                    ))}
-                </div>
+                    </Reveal>
+                ))}
             </div>
         </div>
     );

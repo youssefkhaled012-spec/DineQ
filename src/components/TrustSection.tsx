@@ -50,11 +50,8 @@ export function TrustSection() {
                         {testimonials.map((testi, i) => (
                             <motion.div
                                 key={i}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.5, delay: i * 0.1 }}
-                                viewport={{ once: true }}
-                                className="p-8 rounded-2xl border border-white/10 bg-white/5 relative"
+                                className="p-8 rounded-2xl border border-white/10 bg-white/5 relative transition-all duration-300 hover:border-white/20 hover:shadow-[0_20px_25px_-5px_rgba(0,0,0,0.1)] active:scale-[0.98]"
+                                whileHover={{ y: -4 }}
                             >
                                 <div className="text-glow-purple text-4xl mb-4 font-serif">“</div>
                                 <p className="text-lg italic mb-8 text-foreground/80">{testi.quote}</p>
@@ -86,18 +83,15 @@ export function TrustSection() {
 
                 {/* Final CTA */}
                 <motion.div
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.5 }}
-                    viewport={{ once: true }}
-                    className="p-12 md:p-16 rounded-[2rem] border border-white/10 bg-gradient-to-br from-glow-purple/20 to-glow-blue/10 text-center relative overflow-hidden"
+                    className="p-12 md:p-16 rounded-[2rem] border border-white/10 bg-gradient-to-br from-glow-purple/20 to-glow-blue/10 text-center relative overflow-hidden active:scale-[0.99] transition-transform duration-500"
+                    whileHover={{ boxShadow: "0 0 50px rgba(168,85,247,0.1)" }}
                 >
                     <div className="absolute top-0 left-0 w-full h-full -z-10 bg-[radial-gradient(circle_at_50%_-20%,rgba(168,85,247,0.3),transparent_70%)]"></div>
                     <h2 className="text-3xl md:text-5xl font-bold mb-6">{t('cta_final_title')}</h2>
                     <p className="text-lg md:text-xl text-foreground/60 max-w-2xl mx-auto mb-10">
                         {t('cta_final_desc')}
                     </p>
-                    <Button asChild size="lg" className="h-14 px-10 bg-white text-black hover:bg-white/90 font-bold text-lg shadow-[0_0_40px_rgba(255,255,255,0.2)]">
+                    <Button asChild size="lg" className="h-14 px-10 bg-white text-black hover:bg-white/90 font-bold text-lg shadow-[0_0_40px_rgba(255,255,255,0.2)] transition-all hover:shadow-[0_0_50px_rgba(255,255,255,0.3)] active:scale-[0.98]">
                         <Link href="/demo">{t('cta_final_button')}</Link>
                     </Button>
                 </motion.div>

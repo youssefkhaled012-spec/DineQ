@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { Users, Building2, CheckCircle, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from '@/i18n/routing';
+import { Reveal } from '@/components/motion/Reveal';
 
 export default function PartnersPage() {
     const t = useTranslations('Index');
@@ -31,37 +32,26 @@ export default function PartnersPage() {
     ];
 
     return (
-        <div className="flex flex-col min-h-screen py-24">
-            <div className="container mx-auto px-6 max-w-7xl">
+        <div className="flex flex-col min-h-screen py-24 px-6 max-w-7xl mx-auto w-full">
+            <Reveal width="100%">
                 <div className="mb-20 text-center">
-                    <motion.h1
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="text-4xl md:text-6xl font-bold tracking-tight mb-6"
-                    >
+                    <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6 bg-gradient-to-br from-white to-white/40 bg-clip-text text-transparent">
                         {t('partners_title')}
-                    </motion.h1>
-                    <motion.p
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.1 }}
-                        className="text-foreground/60 max-w-2xl mx-auto text-lg"
-                    >
+                    </h1>
+                    <p className="text-foreground/60 max-w-2xl mx-auto text-lg leading-relaxed">
                         {t('partners_subtitle')}
-                    </motion.p>
+                    </p>
                 </div>
+            </Reveal>
 
-                <div className="grid md:grid-cols-2 gap-12">
-                    {plans.map((plan, i) => (
+            <div className="grid md:grid-cols-2 gap-12">
+                {plans.map((plan, i) => (
+                    <Reveal key={plan.title} width="100%" delay={i * 0.1}>
                         <motion.div
-                            key={plan.title}
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
-                            transition={{ duration: 0.5, delay: i * 0.1 }}
-                            viewport={{ once: true }}
-                            className={`p-10 rounded-[2.5rem] border border-white/10 bg-gradient-to-br ${plan.color} flex flex-col h-full`}
+                            whileHover={{ y: -8, scale: 1.01 }}
+                            className={`p-10 rounded-[3rem] border border-white/10 bg-gradient-to-br ${plan.color} flex flex-col h-full transition-all duration-500 hover:border-white/20 hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.4)]`}
                         >
-                            <div className={`w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-8 ${plan.iconColor}`}>
+                            <div className={`w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-8 ${plan.iconColor} shadow-lg`}>
                                 <plan.icon className="w-8 h-8" />
                             </div>
                             <h2 className="text-3xl font-bold mb-4">{plan.title}</h2>
@@ -76,14 +66,14 @@ export default function PartnersPage() {
                                     </div>
                                 ))}
                             </div>
-                            <Button asChild size="lg" className="h-14 bg-white text-black hover:bg-white/90 font-bold text-lg rounded-2xl shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                            <Button asChild size="lg" className="h-14 bg-white text-black hover:bg-white/90 font-bold text-lg rounded-2xl shadow-[0_10px_30px_rgba(255,255,255,0.1)] transition-all active:scale-[0.98]">
                                 <Link href="/demo">
                                     {plan.cta} <ArrowRight className="ml-2 h-5 w-5 rtl:rotate-180" />
                                 </Link>
                             </Button>
                         </motion.div>
-                    ))}
-                </div>
+                    </Reveal>
+                ))}
             </div>
         </div>
     );
