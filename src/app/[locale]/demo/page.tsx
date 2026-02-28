@@ -1,66 +1,163 @@
 "use client";
 
+import { useTranslations } from 'next-intl';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { CheckCircle2, Send, Loader2 } from 'lucide-react';
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
 
 export default function DemoPage() {
-    const [success, setSuccess] = useState(false);
+    const t = useTranslations('Index');
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isSuccess, setIsSuccess] = useState(false);
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        const formData = new FormData(e.currentTarget);
-        const data = Object.fromEntries(formData.entries());
+        setIsSubmitting(true);
 
-        const res = await fetch('/api/demo', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data),
-        });
+        // Simulate API call
+        await new Promise(resolve => setTimeout(resolve, 1500));
 
-        if (res.ok) {
-            setSuccess(true);
-        }
+        setIsSubmitting(false);
+        setIsSuccess(true);
     };
 
-    if (success) {
-        return (
-            <div className="flex flex-col min-h-screen items-center justify-center p-6 text-center">
-                <div className="bg-glow-purple/20 p-4 rounded-full mb-6">
-                    <svg className="w-12 h-12 text-glow-purple" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                </div>
-                <h1 className="text-3xl font-bold mb-4">Request Received!</h1>
-                <p className="text-foreground/60 max-w-md">
-                    Thanks for reaching out! Our team will get back to you shortly to schedule your personalized demo.
-                </p>
-            </div>
-        );
-    }
-
     return (
-        <div className="flex flex-col min-h-screen py-24 px-6 items-center">
-            <div className="w-full max-w-md border border-white/10 bg-white/5 backdrop-blur-md p-8 rounded-2xl">
-                <h1 className="text-3xl font-bold tracking-tight mb-2">Request a Demo</h1>
-                <p className="text-foreground/60 mb-8 text-sm">Fill out the form below and we'll be in touch.</p>
+        <div className="flex flex-col min-h-screen py-24 px-6">
+            <div className="container mx-auto max-w-4xl">
+                <div className="mb-16 text-center">
+                    <motion.h1
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="text-4xl md:text-6xl font-bold tracking-tight mb-6"
+                    >
+                        {t('demo_title')}
+                    </motion.h1>
+                    <motion.p
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.1 }}
+                        className="text-foreground/60 max-w-2xl mx-auto text-lg"
+                    >
+                        {t('demo_subtitle')}
+                    </motion.p>
+                </div>
 
-                <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-                    <div>
-                        <label className="block text-sm font-medium mb-1.5" htmlFor="name">Full Name</label>
-                        <input required id="name" name="name" className="w-full rounded-md border border-white/10 bg-black/50 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-glow-purple" />
-                    </div>
-                    <div>
-                        <label className="block text-sm font-medium mb-1.5" htmlFor="email">Work Email</label>
-                        <input required type="email" id="email" name="email" className="w-full rounded-md border border-white/10 bg-black/50 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-glow-purple" />
-                    </div>
-                    <div>
-                        <label className="block text-sm font-medium mb-1.5" htmlFor="restaurant">Restaurant Name</label>
-                        <input required id="restaurant" name="restaurant" className="w-full rounded-md border border-white/10 bg-black/50 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-glow-purple" />
-                    </div>
-                    <Button type="submit" className="w-full mt-4 bg-glow-purple text-white hover:bg-glow-purple/80">
-                        Submit Request
-                    </Button>
-                </form>
+                <AnimatePresence mode="wait">
+                    {!isSuccess ? (
+                        <motion.div
+                            key="form"
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.95 }}
+                            className="p-8 md:p-12 rounded-[2.5rem] border border-white/10 bg-white/5 backdrop-blur-xl shadow-2xl relative overflow-hidden"
+                        >
+                            <div className="absolute top-0 right-0 w-64 h-64 bg-glow-purple/10 blur-[80px] -z-10"></div>
+                            <div className="absolute bottom-0 left-0 w-64 h-64 bg-glow-blue/10 blur-[80px] -z-10"></div>
+
+                            <form onSubmit={handleSubmit} className="grid md:grid-cols-2 gap-8">
+                                <div className="space-y-2">
+                                    <Label htmlFor="name">{t('demo_label_name')}</Label>
+                                    <Input id="name" required placeholder="John Doe" className="bg-white/5 border-white/10 h-12 focus:border-glow-purple transition-all" />
+                                </div>
+                                <div className="space-y-2">
+                                    <Label htmlFor="business">{t('demo_label_business')}</Label>
+                                    <Input id="business" required placeholder="My Awesome Cafe" className="bg-white/5 border-white/10 h-12 focus:border-glow-purple transition-all" />
+                                </div>
+                                <div className="space-y-2">
+                                    <Label htmlFor="city">{t('demo_label_city')}</Label>
+                                    <Input id="city" required placeholder="Cairo" className="bg-white/5 border-white/10 h-12 focus:border-glow-purple transition-all" />
+                                </div>
+                                <div className="space-y-2">
+                                    <Label htmlFor="country">{t('demo_label_country')}</Label>
+                                    <Input id="country" required placeholder="Egypt" className="bg-white/5 border-white/10 h-12 focus:border-glow-purple transition-all" />
+                                </div>
+                                <div className="space-y-2">
+                                    <Label>{t('demo_label_tables')}</Label>
+                                    <Select required>
+                                        <SelectTrigger className="bg-white/5 border-white/10 h-12">
+                                            <SelectValue placeholder="Select tables..." />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            <SelectItem value="1">{t('demo_option_tables_1')}</SelectItem>
+                                            <SelectItem value="2">{t('demo_option_tables_2')}</SelectItem>
+                                            <SelectItem value="3">{t('demo_option_tables_3')}</SelectItem>
+                                            <SelectItem value="4">{t('demo_option_tables_4')}</SelectItem>
+                                        </SelectContent>
+                                    </Select>
+                                </div>
+                                <div className="space-y-2">
+                                    <Label htmlFor="phone">{t('demo_label_phone')}</Label>
+                                    <Input id="phone" type="tel" required placeholder="+20 123 456 7890" className="bg-white/5 border-white/10 h-12 focus:border-glow-purple transition-all" />
+                                </div>
+                                <div className="space-y-2">
+                                    <Label htmlFor="email">{t('demo_label_email')}</Label>
+                                    <Input id="email" type="email" required placeholder="john@example.com" className="bg-white/5 border-white/10 h-12 focus:border-glow-purple transition-all" />
+                                </div>
+                                <div className="space-y-2">
+                                    <Label>{t('demo_label_payment')}</Label>
+                                    <Select required>
+                                        <SelectTrigger className="bg-white/5 border-white/10 h-12">
+                                            <SelectValue placeholder="Select payment..." />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            <SelectItem value="1">{t('demo_option_payment_1')}</SelectItem>
+                                            <SelectItem value="2">{t('demo_option_payment_2')}</SelectItem>
+                                            <SelectItem value="3">{t('demo_option_payment_3')}</SelectItem>
+                                        </SelectContent>
+                                    </Select>
+                                </div>
+                                <div className="md:col-span-2 space-y-2">
+                                    <Label htmlFor="message">{t('demo_label_message')}</Label>
+                                    <Textarea id="message" rows={4} className="bg-white/5 border-white/10 focus:border-glow-purple transition-all" />
+                                </div>
+
+                                <div className="md:col-span-2 pt-4">
+                                    <Button type="submit" disabled={isSubmitting} className="w-full h-14 bg-white text-black hover:bg-white/90 font-bold text-lg rounded-xl shadow-[0_0_30px_rgba(255,255,255,0.1)] transition-all active:scale-[0.98]">
+                                        {isSubmitting ? (
+                                            <>
+                                                <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                                                Sending...
+                                            </>
+                                        ) : (
+                                            <>
+                                                {t('demo_submit')} <Send className="ml-2 h-5 w-5 rtl:rotate-180" />
+                                            </>
+                                        )}
+                                    </Button>
+                                </div>
+                            </form>
+                        </motion.div>
+                    ) : (
+                        <motion.div
+                            key="success"
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            className="p-12 md:p-20 rounded-[3rem] border border-white/10 bg-white/5 text-center flex flex-col items-center shadow-2xl"
+                        >
+                            <div className="w-20 h-20 rounded-full bg-green-500/20 border border-green-500/30 flex items-center justify-center mb-8">
+                                <CheckCircle2 className="w-10 h-10 text-green-500" />
+                            </div>
+                            <h2 className="text-3xl md:text-5xl font-bold mb-6">{t('demo_success_title')}</h2>
+                            <p className="text-foreground/60 max-w-lg text-lg leading-relaxed">
+                                {t('demo_success_desc')}
+                            </p>
+                            <Button onClick={() => setIsSuccess(false)} variant="link" className="mt-8 text-glow-purple font-semibold">
+                                Back to form
+                            </Button>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
             </div>
         </div>
     );

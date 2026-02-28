@@ -17,17 +17,17 @@ export function Hero() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5 }}
-                        className="inline-flex items-center rounded-full border border-white/10 bg-white/5 backdrop-blur-sm px-3 py-1 text-sm font-medium text-glow-purple mb-8"
+                        className="inline-flex items-center rounded-full border border-white/10 bg-white/5 backdrop-blur-sm px-3 py-1 text-sm font-medium text-glow-purple mb-8 shadow-[0_0_15px_rgba(168,85,247,0.1)]"
                     >
                         <span className="flex h-2 w-2 rounded-full bg-glow-purple mr-2 blur-[1px]"></span>
-                        Introducing DineQ Platform
+                        {t('badge')}
                     </motion.div>
 
                     <motion.h1
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5, delay: 0.1 }}
-                        className="text-5xl md:text-7xl font-bold tracking-tight max-w-4xl bg-gradient-to-br from-white to-white/40 bg-clip-text text-transparent mb-6"
+                        className="text-5xl md:text-7xl font-bold tracking-tight max-w-4xl bg-gradient-to-br from-white to-white/40 bg-clip-text text-transparent mb-6 text-balance"
                     >
                         {t('title')}
                     </motion.h1>
@@ -36,9 +36,9 @@ export function Hero() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5, delay: 0.2 }}
-                        className="text-lg md:text-xl text-foreground/60 max-w-2xl mb-10 leading-relaxed"
+                        className="text-lg md:text-xl text-foreground/60 max-w-2xl mb-10 leading-relaxed text-balance"
                     >
-                        The all-in-one restaurant management system designed for the modern dining experience. Effortlessly handle reservations, orders, and customer relationships.
+                        {t('subtitle')}
                     </motion.p>
 
                     <motion.div
@@ -47,13 +47,13 @@ export function Hero() {
                         transition={{ duration: 0.5, delay: 0.3 }}
                         className="flex flex-col sm:flex-row items-center gap-4"
                     >
-                        <Button asChild size="lg" className="h-12 px-8 bg-white text-black hover:bg-white/90 font-semibold shadow-[0_0_30px_rgba(255,255,255,0.2)]">
+                        <Button asChild size="lg" className="h-12 px-8 bg-white text-black hover:bg-white/90 font-semibold shadow-[0_0_30px_rgba(255,255,255,0.2)] transition-all active:scale-95">
                             <Link href="/demo">
-                                Get Started <ArrowRight className="ml-2 h-4 w-4" />
+                                {t('cta_primary')} <ArrowRight className="ml-2 h-4 w-4 rtl:rotate-180" />
                             </Link>
                         </Button>
-                        <Button asChild variant="outline" size="lg" className="h-12 px-8 border-white/10 hover:bg-white/5 backdrop-blur-sm">
-                            <Link href="/pricing">View Pricing</Link>
+                        <Button asChild variant="outline" size="lg" className="h-12 px-8 border-white/10 hover:bg-white/5 backdrop-blur-sm transition-all active:scale-95">
+                            <Link href="/pricing">{t('cta_secondary')}</Link>
                         </Button>
                     </motion.div>
                 </div>
